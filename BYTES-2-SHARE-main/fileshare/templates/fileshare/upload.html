@@ -1,0 +1,85 @@
+{% extends 'fileshare/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Upload a File</h3>
+                
+                {% if success %}
+                <div class="alert alert-success">✅ File uploaded successfully!</div>
+                <div class="text-center mb-3">
+                    <a href="{% url 'upload' %}" class="btn btn-primary">Upload Again</a>
+                    <a href="{% url 'file_list' %}" class="btn btn-success">View Uploaded Files</a>
+                </div>
+                {% endif %}
+                
+                <!-- Loading animation -->
+                <div class="animation-container mb-4">
+                    <img src="{% static 'fileshare/images/loading.svg' %}" alt="Loading" class="loading-animation" id="loading-animation">
+                    <img src="{% static 'fileshare/images/celebration.svg' %}" alt="Success" class="success-animation" id="success-animation">
+                </div>
+                
+                <form method="post" enctype="multipart/form-data" id="upload-form">
+                    {% csrf_token %}
+                    
+                    <!-- Drag and Drop Area -->
+                    <div class="drag-upload-container mb-4" id="drag-area">
+                        <div class="drag-icon">📁</div>
+                        <p class="drag-title">Drag & Drop files here</p>
+                        <p class="text-muted drag-subtitle">or</p>
+                        <label for="file-input" class="btn btn-outline-primary">Browse Files</label>
+                        <input type="file" name="file" id="file-input" class="form-control d-none">
+                        
+                        <!-- File Selection Display -->
+                        <div id="file-display" class="file-display d-none mt-3">
+                            <div class="file-info">
+                                <div class="file-icon">📄</div>
+                                <div class="file-details">
+                                    <p id="selected-file-name" class="file-name mb-0"></p>
+                                    <p id="selected-file-size" class="file-size text-muted mb-0"></p>
+                                </div>
+                                <button type="button" id="remove-file" class="btn btn-sm btn-outline-danger remove-file">×</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="progress mb-3">
+                        <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 0%">
+                            0%
+                        </div>
+                    </div>
+                    
+                    <!-- Slider to Upload -->
+                    <div class="upload-slider-container mb-4" id="upload-slider">
+                        <div class="upload-slider-track"></div>
+                        <div class="upload-slider-handle" id="slider-handle">📤</div>
+                        <div class="upload-slider-text">← Slide to Upload →</div>
+                    </div>
+                    
+                    <!-- Traditional Submit Button (Hidden by default) -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-lg btn-success d-none" id="submit-btn">📤 Upload</button>
+                    </div>
+                </form>
+                
+                <div class="mt-4 text-center">
+                    <p class="text-muted">Share files of any size with devices on your network</p>
+                    <a href="{% url 'file_list' %}" class="btn btn-outline-primary mt-2">View & Download Files</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Audio element for explosion sound -->
+<audio id="explosion-sound" src="{% static 'fileshare/sounds/explosion.mp3' %}" preload="auto"></audio>
+
+<!-- Fireworks container -->
+<div class="fireworks-container"></div>
+
+<script src="{% static 'fileshare/js/fireworks.js' %}"></script>
+<script src="{% static 'fileshare/js/upload.js' %}"></script>
+{% endblock %}

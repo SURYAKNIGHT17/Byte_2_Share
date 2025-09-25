@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LocalShare</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Offline Bootstrap & CSS -->
+    <link rel="stylesheet" href="{% static 'fileshare/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fileshare/css/custom.css' %}">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'landing' %}">@Byte</a>
+    <div class="ms-auto d-flex align-items-center">
+      <!-- Theme Switch -->
+      <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+          <input type="checkbox" id="checkbox" />
+          <div class="slider">
+            <div class="slider-icons">
+              <span>🌙</span>
+              <span>☀️</span>
+            </div>
+          </div>
+        </label>
+      </div>
+      
+      {% if user.is_authenticated %}
+          <span class="text-light me-3">Hi, {{ user.username }}!</span>
+          <form action="{% url 'logout' %}" method="post" style="display:inline;">
+              {% csrf_token %}
+                  <button type="submit" class="btn btn-sm btn-danger">Logout</button>
+          </form>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn btn-sm btn-light">Login</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+<div class="container my-4">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- Bootstrap JS Offline -->
+<script src="{% static 'fileshare/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Check for saved theme preference or use system preference
+    const toggleSwitch = document.querySelector('#checkbox');
+    const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    // Set initial theme
+    if (currentTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        toggleSwitch.checked = true;
+    }
+    
+    // Function to switch theme
+    function switchTheme(e) {
+        if (e.target.checked) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+        }
+    }
+    
+    // Add event listener for theme toggle
+    toggleSwitch.addEventListener('change', switchTheme);
+</script>
+</body>
+</html>

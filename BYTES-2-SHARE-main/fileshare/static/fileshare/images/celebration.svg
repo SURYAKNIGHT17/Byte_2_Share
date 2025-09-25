@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <!-- Background -->
+  <rect width="800" height="400" fill="#f8f9fa" />
+  
+  <!-- Central character celebrating -->
+  <g id="character">
+    <circle cx="400" cy="200" r="60" fill="#FFD700" />
+    <circle cx="400" cy="150" r="25" fill="#FFD700" />
+    
+    <!-- Arms -->
+    <g id="leftArm">
+      <line x1="340" y1="200" x2="300" y2="150" stroke="#FFD700" stroke-width="15" stroke-linecap="round" />
+    </g>
+    
+    <g id="rightArm">
+      <line x1="460" y1="200" x2="500" y2="150" stroke="#FFD700" stroke-width="15" stroke-linecap="round" />
+    </g>
+    
+    <!-- Body -->
+    <rect x="370" y="220" width="60" height="100" rx="10" fill="#4682B4" />
+    
+    <!-- Legs -->
+    <line x1="380" y1="320" x2="360" y2="380" stroke="#4682B4" stroke-width="15" stroke-linecap="round" />
+    <line x1="420" y1="320" x2="440" y2="380" stroke="#4682B4" stroke-width="15" stroke-linecap="round" />
+    
+    <!-- Face -->
+    <circle cx="385" cy="145" r="6" fill="#000" />
+    <circle cx="415" cy="145" r="6" fill="#000" />
+    <path d="M380,165 Q400,185 420,165" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" />
+  </g>
+  
+  <!-- Confetti -->
+  <g id="confetti">
+    <rect x="100" y="50" width="15" height="15" fill="#FF5252" transform="rotate(45 100 50)" />
+    <rect x="200" y="80" width="10" height="10" fill="#4CAF50" transform="rotate(30 200 80)" />
+    <rect x="300" y="40" width="12" height="12" fill="#2196F3" transform="rotate(60 300 40)" />
+    <rect x="500" y="60" width="14" height="14" fill="#FFC107" transform="rotate(20 500 60)" />
+    <rect x="600" y="70" width="11" height="11" fill="#9C27B0" transform="rotate(75 600 70)" />
+    <rect x="700" y="50" width="13" height="13" fill="#00BCD4" transform="rotate(15 700 50)" />
+    <rect x="150" y="150" width="9" height="9" fill="#FF9800" transform="rotate(40 150 150)" />
+    <rect x="250" y="130" width="16" height="16" fill="#8BC34A" transform="rotate(55 250 130)" />
+    <rect x="350" y="100" width="8" height="8" fill="#E91E63" transform="rotate(25 350 100)" />
+    <rect x="450" y="120" width="10" height="10" fill="#673AB7" transform="rotate(50 450 120)" />
+    <rect x="550" y="140" width="12" height="12" fill="#FF5722" transform="rotate(35 550 140)" />
+    <rect x="650" y="110" width="14" height="14" fill="#CDDC39" transform="rotate(65 650 110)" />
+  </g>
+  
+  <!-- File icon with checkmark -->
+  <g id="fileSuccess">
+    <rect x="370" y="100" width="60" height="80" fill="#FFFFFF" stroke="#000" stroke-width="2" rx="5" />
+    <path d="M385,140 L400,155 L430,125" fill="none" stroke="#4CAF50" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  
+  <!-- Text -->
+  <text x="400" y="50" font-family="Arial" font-size="24" text-anchor="middle" fill="#333" font-weight="bold">Success!</text>
+  <text x="400" y="350" font-family="Arial" font-size="18" text-anchor="middle" fill="#666">Your file has been transferred!</text>
+  
+  <!-- Animation definitions -->
+  <style>
+    @keyframes wave {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(-15deg); }
+      75% { transform: rotate(15deg); }
+      100% { transform: rotate(0deg); }
+    }
+    
+    @keyframes jump {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+    
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(var(--rotation)); opacity: 1; }
+      100% { transform: translateY(400px) rotate(calc(var(--rotation) + 360deg)); opacity: 0; }
+    }
+    
+    @keyframes fileSuccess {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    #leftArm {
+      transform-origin: 340px 200px;
+      animation: wave 1s ease-in-out infinite;
+    }
+    
+    #rightArm {
+      transform-origin: 460px 200px;
+      animation: wave 1s ease-in-out infinite reverse;
+    }
+    
+    #character {
+      animation: jump 1s ease-in-out infinite;
+    }
+    
+    #confetti > rect {
+      --rotation: 0deg;
+      animation: confettiFall 3s linear infinite;
+      opacity: 0;
+    }
+    
+    #confetti > rect:nth-child(1) { animation-delay: 0s; --rotation: 45deg; }
+    #confetti > rect:nth-child(2) { animation-delay: 0.2s; --rotation: 30deg; }
+    #confetti > rect:nth-child(3) { animation-delay: 0.4s; --rotation: 60deg; }
+    #confetti > rect:nth-child(4) { animation-delay: 0.6s; --rotation: 20deg; }
+    #confetti > rect:nth-child(5) { animation-delay: 0.8s; --rotation: 75deg; }
+    #confetti > rect:nth-child(6) { animation-delay: 1.0s; --rotation: 15deg; }
+    #confetti > rect:nth-child(7) { animation-delay: 1.2s; --rotation: 40deg; }
+    #confetti > rect:nth-child(8) { animation-delay: 1.4s; --rotation: 55deg; }
+    #confetti > rect:nth-child(9) { animation-delay: 1.6s; --rotation: 25deg; }
+    #confetti > rect:nth-child(10) { animation-delay: 1.8s; --rotation: 50deg; }
+    #confetti > rect:nth-child(11) { animation-delay: 2.0s; --rotation: 35deg; }
+    #confetti > rect:nth-child(12) { animation-delay: 2.2s; --rotation: 65deg; }
+    
+    #fileSuccess {
+      animation: fileSuccess 1s ease-out forwards;
+    }
+  </style>
+</svg>

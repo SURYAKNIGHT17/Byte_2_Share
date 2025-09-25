@@ -1,0 +1,50 @@
+{% extends 'fileshare/base.html' %}
+{% load static %}
+{% block content %}
+<div class="text-center mt-4">
+    <h1>Local File Sharing</h1>
+    <p class="text-muted">Share files over local Wi-Fi securely</p>
+    
+    <!-- Animation container -->
+    <div class="animation-container">
+        <img src="{% static 'fileshare/images/file-transfer.svg' %}" alt="File Transfer Animation" class="file-transfer-animation">
+    </div>
+    
+    <div class="mt-4">
+        <a href="{% url 'file_list' %}" class="btn btn-lg btn-primary me-3">📂 Download Files</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'upload' %}" class="btn btn-lg btn-success">⬆️ Upload File</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="btn btn-lg btn-secondary">Login to Upload</a>
+        {% endif %}
+    </div>
+    
+    <!-- Features cards -->
+    <div class="row mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">🚀 Fast</h3>
+                    <p class="card-text">Transfer files at maximum speed over your local network</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">🔒 Secure</h3>
+                    <p class="card-text">Your files stay on your network, never going to the cloud</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">😊 Simple</h3>
+                    <p class="card-text">No complicated setup, just connect and share!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

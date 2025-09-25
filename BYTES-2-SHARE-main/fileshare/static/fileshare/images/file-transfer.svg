@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <!-- People -->
+  <g id="person1">
+    <circle cx="200" cy="200" r="50" fill="#FFD700" />
+    <circle cx="200" cy="160" r="20" fill="#FFD700" />
+    <rect x="180" y="210" width="40" height="80" rx="10" fill="#4682B4" />
+    <line x1="180" y1="230" x2="150" y2="280" stroke="#4682B4" stroke-width="10" stroke-linecap="round" />
+    <line x1="220" y1="230" x2="250" y2="280" stroke="#4682B4" stroke-width="10" stroke-linecap="round" />
+    <!-- Happy face -->
+    <circle cx="190" cy="155" r="5" fill="#000" />
+    <circle cx="210" cy="155" r="5" fill="#000" />
+    <path d="M180,170 Q200,190 220,170" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" />
+  </g>
+  
+  <g id="person2">
+    <circle cx="600" cy="200" r="50" fill="#FF6347" />
+    <circle cx="600" cy="160" r="20" fill="#FF6347" />
+    <rect x="580" y="210" width="40" height="80" rx="10" fill="#32CD32" />
+    <line x1="580" y1="230" x2="550" y2="280" stroke="#32CD32" stroke-width="10" stroke-linecap="round" />
+    <line x1="620" y1="230" x2="650" y2="280" stroke="#32CD32" stroke-width="10" stroke-linecap="round" />
+    <!-- Surprised face initially -->
+    <circle cx="590" cy="155" r="5" fill="#000" />
+    <circle cx="610" cy="155" r="5" fill="#000" />
+    <ellipse cx="600" cy="175" rx="10" ry="8" fill="#000" />
+  </g>
+  
+  <!-- File -->
+  <g id="file">
+    <rect x="220" y="150" width="40" height="50" fill="#FFFFFF" stroke="#000" stroke-width="2" rx="5" />
+    <line x1="230" y1="160" x2="250" y2="160" stroke="#000" stroke-width="2" />
+    <line x1="230" y1="170" x2="250" y2="170" stroke="#000" stroke-width="2" />
+    <line x1="230" y1="180" x2="250" y2="180" stroke="#000" stroke-width="2" />
+  </g>
+  
+  <!-- Path with dashed line -->
+  <path id="transferPath" d="M260,175 C350,100 450,300 540,175" fill="none" stroke="#007BFF" stroke-width="3" stroke-dasharray="10,10" />
+  
+  <!-- Animation definitions -->
+  <style>
+    @keyframes moveFile {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(160px, -50px); }
+      100% { transform: translate(320px, 0); }
+    }
+    
+    @keyframes changeExpression {
+      0% { opacity: 1; }
+      90% { opacity: 1; }
+      95% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    
+    @keyframes showSmile {
+      0% { opacity: 0; }
+      90% { opacity: 0; }
+      95% { opacity: 1; }
+      100% { opacity: 1; }
+    }
+    
+    #file {
+      animation: moveFile 3s ease-in-out infinite;
+    }
+    
+    #person2 ellipse {
+      animation: changeExpression 3s ease-in-out infinite;
+    }
+    
+    #happyMouth {
+      animation: showSmile 3s ease-in-out infinite;
+    }
+  </style>
+  
+  <!-- Happy mouth for person2 that appears at the end -->
+  <path id="happyMouth" d="M580,175 Q600,195 620,175" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" opacity="0" />
+  
+  <!-- Title -->
+  <text x="400" y="50" font-family="Arial" font-size="24" text-anchor="middle" fill="#333">Sharing Files Made Fun!</text>
+  <text x="400" y="350" font-family="Arial" font-size="18" text-anchor="middle" fill="#666">Quick, Easy, and Secure File Transfers</text>
+</svg>

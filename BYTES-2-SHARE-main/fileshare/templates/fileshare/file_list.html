@@ -1,0 +1,93 @@
+{% extends 'fileshare/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Available Files</h3>
+                    
+                    {% if messages %}
+                      {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Size (MB)</th>
+                                    <th>Uploaded</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for f in files %}
+                                <tr class="align-middle">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="file-icon me-2">
+                                                {% if f.filename|lower|slice:"-4:" == '.pdf' %}
+                                                    📕
+                                                {% elif f.filename|lower|slice:"-4:" == '.doc' or f.filename|lower|slice:"-5:" == '.docx' %}
+                                                    📘
+                                                {% elif f.filename|lower|slice:"-4:" == '.jpg' or f.filename|lower|slice:"-5:" == '.jpeg' or f.filename|lower|slice:"-4:" == '.png' %}
+                                                    🖼️
+                                                {% elif f.filename|lower|slice:"-4:" == '.mp3' or f.filename|lower|slice:"-4:" == '.wav' %}
+                                                    🎵
+                                                {% elif f.filename|lower|slice:"-4:" == '.mp4' or f.filename|lower|slice:"-4:" == '.mov' or f.filename|lower|slice:"-4:" == '.mkv' %}
+                                                    🎬
+                                                {% elif f.filename|lower|slice:"-4:" == '.zip' or f.filename|lower|slice:"-4:" == '.rar' %}
+                                                    📦
+                                                {% else %}
+                                                    📄
+                                                {% endif %}
+                                            </div>
+                                            <span>{{ f.filename }}</span>
+                                        </div>
+                                    </td>
+                                    <td>{% widthratio f.size 1048576 1 %}</td>
+                                    <td>{{ f.upload_date|date:"Y-m-d H:i" }}</td>
+                                    <td>
+                                        <a href="{% url 'download_file' f.id %}" class="btn btn-sm btn-primary">⬇ Download</a>
+                                        {% if request.user.is_authenticated %}
+                                            <a href="{% url 'delete_file' f.id %}" class="btn btn-sm btn-danger">🗑 Delete</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-5">
+                                        <div class="empty-state">
+                                            <img src="{% static 'fileshare/images/loading.svg' %}" alt="No files" style="width: 100px; height: 100px;">
+                                            <p class="mt-3">No files uploaded yet.</p>
+                                            {% if request.user.is_authenticated %}
+                                                <a href="{% url 'upload' %}" class="btn btn-success mt-2">Upload your first file</a>
+                                            {% else %}
+                                                <a href="{% url 'login' %}" class="btn btn-secondary mt-2">Login to upload files</a>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            {% if request.user.is_authenticated and files %}
+            <div class="text-center">
+                <a href="{% url 'upload' %}" class="btn btn-success">Upload More Files</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
